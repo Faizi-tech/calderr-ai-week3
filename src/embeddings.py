@@ -3,15 +3,19 @@ from sentence_transformers import SentenceTransformer
 # Load the pre-trained embedding model
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
-# Sentence to convert into an embedding
-sentence = "Artificial Intelligence is transforming the world."
+# List of sentences
+sentences = [
+    "I love programming.",
+    "Coding is my favorite hobby.",
+    "I enjoy playing football.",
+    "Artificial Intelligence is transforming the world."
+]
 
-# Generate the embedding
-embedding = model.encode(sentence)
+# Generate embeddings
+embeddings = model.encode(sentences)
 
-# Display the embedding vector
-print("Embedding Vector:")
-print(embedding)
-
-# Display the size (dimensions) of the embedding
-print(f"\nEmbedding Shape: {embedding.shape}")
+# Display each sentence and its embedding details
+for i, (sentence, embedding) in enumerate(zip(sentences, embeddings), start=1):
+    print(f"\nSentence {i}: {sentence}")
+    print(f"Embedding Shape: {embedding.shape}")
+    print(f"First 10 Values: {embedding[:10]}")
