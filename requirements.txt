@@ -1,0 +1,14 @@
+openai
+python-dotenv
+numpy
+pandas
+matplotlib
+scikit-learn
+sentence-transformers
+langchain
+langchain-community
+langchain-openai
+chromadb
+faiss-cpu
+pypdf
+tqdm
