@@ -42,11 +42,12 @@ similarity_scores = cosine_similarity(
     [query_embedding], embeddings
 )[0]
 
-# Find the index of the most similar sentence
-best_match_index = similarity_scores.argmax()
+# Get indices of the top 3 most similar sentences
+top_k = 3
+top_indices = similarity_scores.argsort()[-top_k:][::-1]
 
-# Display the result
-print("\nBest Match:")
-print(sentences[best_match_index])
+print("\nTop 3 Matching Sentences:\n")
 
-print(f"Similarity Score: {similarity_scores[best_match_index]:.4f}")
+for rank, index in enumerate(top_indices, start=1):
+    print(f"{rank}. {sentences[index]}")
+    print(f"   Similarity Score: {similarity_scores[index]:.4f}\n")
