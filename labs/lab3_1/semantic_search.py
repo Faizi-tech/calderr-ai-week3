@@ -20,3 +20,10 @@ sentences = [
 
 print("Knowledge base loaded successfully!")
 print(f"Total Sentences: {len(sentences)}")
+
+# Generate embeddings for the knowledge base
+embeddings = model.encode(sentences)
+
+print("\nEmbeddings generated successfully!")
+print(f"Number of embeddings: {len(embeddings)}")
+print(f"Embedding dimension: {embeddings[0].shape}")
