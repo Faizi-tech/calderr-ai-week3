@@ -28,26 +28,27 @@ print("\nEmbeddings generated successfully!")
 print(f"Number of embeddings: {len(embeddings)}")
 print(f"Embedding dimension: {embeddings[0].shape}")
 
-# Take query from the user
-query = input("\nEnter your search query: ")
+while True:
+    query = input("\nEnter your search query (or type 'exit' to quit): ")
 
-# Generate embedding for the query
-query_embedding = model.encode(query)
+    if query.lower() == "exit":
+        print("\nThank you for using Semantic Search CLI!")
+        break
 
-print("\nQuery embedding generated successfully!")
-print(f"Embedding Shape: {query_embedding.shape}")
+    # Generate embedding for the query
+    query_embedding = model.encode(query)
 
-# Calculate cosine similarity
-similarity_scores = cosine_similarity(
-    [query_embedding], embeddings
-)[0]
+    # Calculate cosine similarity
+    similarity_scores = cosine_similarity(
+        [query_embedding], embeddings
+    )[0]
 
-# Get indices of the top 3 most similar sentences
-top_k = 3
-top_indices = similarity_scores.argsort()[-top_k:][::-1]
+    # Get top 3 matches
+    top_k = 3
+    top_indices = similarity_scores.argsort()[-top_k:][::-1]
 
-print("\nTop 3 Matching Sentences:\n")
+    print("\nTop 3 Matching Sentences:\n")
 
-for rank, index in enumerate(top_indices, start=1):
-    print(f"{rank}. {sentences[index]}")
-    print(f"   Similarity Score: {similarity_scores[index]:.4f}\n")
+    for rank, index in enumerate(top_indices, start=1):
+        print(f"{rank}. {sentences[index]}")
+        print(f"   Similarity Score: {similarity_scores[index]:.4f}\n")
