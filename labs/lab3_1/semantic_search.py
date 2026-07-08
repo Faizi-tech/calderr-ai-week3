@@ -27,3 +27,26 @@ embeddings = model.encode(sentences)
 print("\nEmbeddings generated successfully!")
 print(f"Number of embeddings: {len(embeddings)}")
 print(f"Embedding dimension: {embeddings[0].shape}")
+
+# Take query from the user
+query = input("\nEnter your search query: ")
+
+# Generate embedding for the query
+query_embedding = model.encode(query)
+
+print("\nQuery embedding generated successfully!")
+print(f"Embedding Shape: {query_embedding.shape}")
+
+# Calculate cosine similarity
+similarity_scores = cosine_similarity(
+    [query_embedding], embeddings
+)[0]
+
+# Find the index of the most similar sentence
+best_match_index = similarity_scores.argmax()
+
+# Display the result
+print("\nBest Match:")
+print(sentences[best_match_index])
+
+print(f"Similarity Score: {similarity_scores[best_match_index]:.4f}")
