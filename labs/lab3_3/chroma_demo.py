@@ -1,12 +1,12 @@
 import chromadb
 
 # Create a ChromaDB client
-client = chromadb.Client()
+client = chromadb.PersistentClient(path="./chroma_db")
 
 print("ChromaDB client created successfully!")
 
 # Create a collection
-collection = client.create_collection(name="knowledge_base")
+collection = client.get_or_create_collection(name="knowledge_base")
 
 print("Collection created successfully!")
 print(f"Collection Name: {collection.name}")
@@ -30,12 +30,15 @@ ids = [
 ]
 
 # Add documents to the collection
-collection.add(
-    documents=documents,
-    ids=ids
-)
+if collection.count() == 0:
+    collection.add(
+        documents=documents,
+        ids=ids
+    )
+    print("\nDocuments added successfully!")
+else:
+    print("\nCollection already contains documents.")
 
-print("\nDocuments added successfully!")
 print(f"Total Documents: {collection.count()}")
 
 # Search query
